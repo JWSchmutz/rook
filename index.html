@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        tr:nth-child(even) {
+            background: #DDD
+        }
+
+        tr:nth-child(odd) {
+            background: #FFF
+        }
+    </style>
+</head>
+
+<body>
+    <form action="">
+        <h3>Add new game results:</h3>
+        <label for="player1A">Winning Team:</label>
+
+        <select name="player1A" id="player1A">
+            <option value="d">Daryl</option>
+            <option value="p">Penny</option>
+            <option value="j">Jeremy</option>
+            <option value="a">Ashley</option>
+            <option value="w">Wesley</option>
+        </select>
+        <select name="player1B" id="player1B">
+            <option value="d">Daryl</option>
+            <option value="p">Penny</option>
+            <option value="j">Jeremy</option>
+            <option value="a">Ashley</option>
+            <option value="w">Wesley</option>
+        </select>
+        <label for="player2A">Losing Team:</label>
+
+        <select name="player2A" id="player2A">
+            <option value="d">Daryl</option>
+            <option value="p">Penny</option>
+            <option value="j">Jeremy</option>
+            <option value="a">Ashley</option>
+            <option value="w">Wesley</option>
+        </select>
+        <select name="player2B" id="player2B">
+            <option value="d">Daryl</option>
+            <option value="p">Penny</option>
+            <option value="j">Jeremy</option>
+            <option value="a">Ashley</option>
+            <option value="w">Wesley</option>
+        </select>
+        <br>
+        <input type="button" value="Submit" id="submit" onclick="submitGame()">
+    </form>
+    <h2>Results Table</h2>
+
+    <table>
+        <tr>
+            <th>Player/Team</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Win Rate</th>
+        </tr>
+        <tr>
+            <td id='d'>Daryl</td>
+            <td id='d-wins'></td>
+            <td id='d-losses'></td>
+            <td id='d-win-rate'></td>
+        </tr>
+        <tr>
+            <td id='p'>Penny</td>
+            <td id='p-wins'></td>
+            <td id='p-losses'></td>
+            <td id='p-win-rate'></td>
+        </tr>
+        <tr>
+            <td id='j'>Jeremy</td>
+            <td id='j-wins'></td>
+            <td id='j-losses'></td>
+            <td id='j-win-rate'></td>
+        </tr>
+        <tr>
+            <td id='a'>Ashley</td>
+            <td id='a-wins'></td>
+            <td id='a-losses'></td>
+            <td id='a-win-rate'></td>
+        </tr>
+        <tr>
+            <td id='w'>Wesley</td>
+            <td id='w-wins'></td>
+            <td id='w-losses'></td>
+            <td id='w-win-rate'></td>
+        </tr>
+        <tr>
+            <td id='dp'>Darryl & Penny</td>
+            <td id='dp-wins'></td>
+            <td id='dp-losses'></td>
+            <td id='dp-win-rate'></td>
+        </tr>
+        <tr>
+            <td id='dj'>Darryl & Jeremy</td>
+            <td id='dj-wins'></td>
+            <td id='dj-losses'></td>
+            <td id='dj-win-rate'></td>
+        </tr>
+        <tr>
+            <td id='da'>Darryl & Ashley</td>
+            <td id='da-wins'></td>
+            <td id='da-losses'></td>
+            <td id='da-win-rate'></td>
+        </tr>
+        <tr>
+            <td id='dw'>Darryl & Wesley</td>
+            <td id='dw-wins'></td>
+            <td id='dw-losses'></td>
+            <td id='dw-win-rate'></td>
+        </tr>
+        <tr>
+        <tr>
+            <td id='pj'>Penny & Jeremy</td>
+            <td id='pj-wins'></td>
+            <td id='pj-losses'></td>
+            <td id='pj-win-rate'></td>
+        </tr>
+        <tr>
+            <td id='pa'>Penny & Ashley</td>
+            <td id='pa-wins'></td>
+            <td id='pa-losses'></td>
+            <td id='pa-win-rate'></td>
+        </tr>
+        <tr>
+            <td id='pw'>Penny & Wesley</td>
+            <td id='pw-wins'></td>
+            <td id='pw-losses'></td>
+            <td id='pw-win-rate'></td>
+        </tr>
+        <tr>
+            <td id='ja'>Jeremy & Ashley</td>
+            <td id='ja-wins'></td>
+            <td id='ja-losses'></td>
+            <td id='ja-win-rate'></td>
+        </tr>
+        <tr>
+            <td id='jw'>Jeremy & Wesley</td>
+            <td id='jw-wins'></td>
+            <td id='jw-losses'></td>
+            <td id='jw-win-rate'></td>
+        </tr>
+        <tr>
+            <td id='aw'>Ashley & Wesley</td>
+            <td id='aw-wins'></td>
+            <td id='aw-losses'></td>
+            <td id='aw-win-rate'></td>
+        </tr>
+    </table>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-firestore.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyBYlxAwdHtDFrb_r1JA8dFhR2J2znNhGMo",
+            authDomain: "rook-f9581.firebaseapp.com",
+            projectId: "rook-f9581",
+            storageBucket: "rook-f9581.appspot.com",
+            messagingSenderId: "1087984800035",
+            appId: "1:1087984800035:web:650321ef8ab9a069fa7c96",
+            measurementId: "G-GNRJFSTTZD"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        // Get a database reference to our blog
+        var db = firebase.firestore();
+
+    </script>
+    <script src='main.js'></script>
+</body>
+
+</html>
