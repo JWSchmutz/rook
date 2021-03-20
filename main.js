@@ -24,9 +24,9 @@ const submitGame = () => {
       document.getElementById("player2B").value,
     ],
   };
-  db.collection("games").add(game);
-  location.reload();
-  //resets dropdowns if i ever stop restarting page using a callback
+  console.log(game)
+  db.collection("games").add(game).then(res => console.log(res))
+   //resets dropdowns if i ever stop restarting page using a callback
   document.querySelectorAll("select").forEach((element) => {
     element.selectedIndex = 0;
   });
@@ -47,9 +47,10 @@ db.collection("games")
       } else {
         allTableData[data.winners[0] + data.winners[1]].w++;
       }
-      if (allTableData[data.losers[1] + data.losers[0]] === "number") {
+      if (allTableData[data.losers[1] + data.losers[0]] !==undefined) {
         allTableData[data.losers[1] + data.losers[0]].l++;
       } else {
+        console.log(data.losers[0], data.losers[1], allTableData[data.losers[0] + data.losers[1]])
         allTableData[data.losers[0] + data.losers[1]].l++;
       }
     });
